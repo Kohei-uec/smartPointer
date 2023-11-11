@@ -1,17 +1,6 @@
 import { serve } from 'denohttp/server.ts';
 import { serveDir } from 'denohttp/file_server.ts';
-import { EventHandler } from './event.js';
 import { World } from './room.js';
-
-const eventHandler = new EventHandler();
-eventHandler.setEventListener('updatePointer', (data,room)=>{
-    //const pos = data;
-    room.updateScreen(data);
-});
-eventHandler.setEventListener('init position', (data,room)=>{
-    //const pos = data;
-    room.sendScreen('init position', data);
-});
 
 const world = new World();
 
@@ -35,11 +24,9 @@ serve(async (req) => {
         //socket listeners================================
         socket.onopen = () => {
             room.sendPointer('open', {id:room.id});
-            //room.start();
         };
         socket.onmessage = (e) => {
             const json = JSON.parse(e.data);
-            //eventHandler.switchEvent(json,room);
             room.sendScreen(json.event, json.data);
         };
         socket.onerror = (e) => {
@@ -67,7 +54,6 @@ serve(async (req) => {
         };
         socket.onmessage = (e) => {
             const json = JSON.parse(e.data);
-            //eventHandler.switchEvent(json);
             room.sendPointer(json.event, json.data);
         };
         socket.onerror = (e) => {
