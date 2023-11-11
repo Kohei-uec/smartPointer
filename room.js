@@ -25,6 +25,21 @@ export class World{
             this.rooms.delete(id);
         }
     }
+
+    //退室管理
+    exit(id, member){
+        const room = this.findRoom(id);
+        if(member === 'screen'){
+            room.screenSocket = null;
+        } else if(member === 'pointer'){
+            room.pointerSocket = null;
+        }
+
+        //消失判定
+        if(room.screenSocket === null && room.pointerSocket === null){
+            this.closeRoom(id);            
+        }
+    }
 }
 
 class Room {

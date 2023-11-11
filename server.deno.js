@@ -15,7 +15,7 @@ serve(async (req) => {
     const url = new URL(req.url);
     const pathname = url.pathname;
 
-    console.log(pathname);
+    //console.log(pathname);
 
     //web socket for pointer
     if (req.method === 'GET' && pathname === '/pointer') {
@@ -41,7 +41,7 @@ serve(async (req) => {
             console.log('socket errored:', e);
         };
         socket.onclose = () => {
-            //room.close()
+            world.exit('pointer');
         };
 
         return response;
@@ -68,7 +68,7 @@ serve(async (req) => {
             console.log('socket errored:', e);
         };
         socket.onclose = () => {
-            //room.close()
+            world.exit('screen');
         };
 
         return response;
