@@ -57,27 +57,6 @@ class Room {
         this.fps = 30;
     }
 
-    //sync pointer
-    start(){
-        console.log('sync start')
-        const delay = 1000 / this.fps;
-        this.interval = setInterval(()=>{
-            this.updateScreen();
-        }, delay);
-    }
-    updateScreen(data){
-        if(data){
-            this.sendScreen('update',data);
-        }else {
-            this.sendScreen('update',this.pointer);
-        }
-    }
-    setPosition(v){
-        this.pointer.position.x = v.x;
-        this.pointer.position.y = v.y;
-    }
-
-
     //send
     send(socket, event, data){
         if(socket?.readyState != 1){return;}

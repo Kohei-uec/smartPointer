@@ -8,6 +8,10 @@ eventHandler.setEventListener('updatePointer', (data,room)=>{
     //const pos = data;
     room.updateScreen(data);
 });
+eventHandler.setEventListener('init position', (data,room)=>{
+    //const pos = data;
+    room.sendScreen('init position', data);
+});
 
 const world = new World();
 
@@ -35,7 +39,8 @@ serve(async (req) => {
         };
         socket.onmessage = (e) => {
             const json = JSON.parse(e.data);
-            eventHandler.switchEvent(json,room);
+            //eventHandler.switchEvent(json,room);
+            room.sendScreen(json.event, json.data);
         };
         socket.onerror = (e) => {
             console.log('socket errored:', e);
@@ -62,7 +67,8 @@ serve(async (req) => {
         };
         socket.onmessage = (e) => {
             const json = JSON.parse(e.data);
-            eventHandler.switchEvent(json);
+            //eventHandler.switchEvent(json);
+            room.sendPointer(json.event, json.data);
         };
         socket.onerror = (e) => {
             console.log('socket errored:', e);

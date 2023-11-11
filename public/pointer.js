@@ -20,3 +20,9 @@ window.addEventListener("deviceorientation", (dat) => {
     document.getElementById("output").innerText = `alpha:${alpha}\nbeta:${beta}\ngamma:${gamma}`;
     send('updatePointer',{alpha, beta, gamma});
 });
+
+const btn = document.getElementById('btn');
+btn.onclick = ()=>{
+    send('init position',{alpha, beta, gamma});
+};
+
