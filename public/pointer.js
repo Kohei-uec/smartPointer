@@ -18,5 +18,5 @@ window.addEventListener("deviceorientation", (dat) => {
     gamma = dat.gamma;  // y軸（上下）まわりの回転の角度（右に傾けるとプラス）
 
     document.getElementById("output").innerText = `alpha:${alpha}\nbeta:${beta}\ngamma:${gamma}`;
-    send('update',{alpha, beta, gamma});
+    send('updatePointer',{alpha, beta, gamma});
 });

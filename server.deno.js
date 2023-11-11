@@ -4,8 +4,9 @@ import { EventHandler } from './event.js';
 import { World } from './room.js';
 
 const eventHandler = new EventHandler();
-eventHandler.setEventListener('test', (data)=>{
-    console.log(data);
+eventHandler.setEventListener('updatePointer', (data,room)=>{
+    //const pos = data;
+    room.updateScreen(data);
 });
 
 const world = new World();
@@ -34,7 +35,7 @@ serve(async (req) => {
         };
         socket.onmessage = (e) => {
             const json = JSON.parse(e.data);
-            eventHandler.switchEvent(json);
+            eventHandler.switchEvent(json,room);
         };
         socket.onerror = (e) => {
             console.log('socket errored:', e);

@@ -50,8 +50,12 @@ class Room {
             this.updateScreen();
         }, delay);
     }
-    updateScreen(){
-        this.sendScreen('update',this.pointer);
+    updateScreen(data){
+        if(data){
+            this.sendScreen('update',data);
+        }else {
+            this.sendScreen('update',this.pointer);
+        }
     }
     setPosition(v){
         this.pointer.position.x = v.x;
