@@ -7,13 +7,13 @@ export class EventHandler {
         this.event2func[event] = func;
     }
 
-    switchEvent(data, options) {
-        const func = this.event2func[data.event];
+    switchEvent(resp, options) {
+        const func = this.event2func[resp.event];
         if (!func) {
-            console.log("unexpected event:", data.event);
+            console.log("unexpected event:", resp.event);
             return;
         }
-        func(data, options);
+        func(resp.data, options);
         return;
     }
 }

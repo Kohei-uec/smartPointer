@@ -1,18 +1,18 @@
-import { stringJSON2map } from "./util.js";
+let socket;
 
 //return the socket
 export async function connectSocket(){
-    const myUsername = localStorage.getItem("username");
+    //const myUsername = localStorage.getItem("username");
     const url = new URL(window.location.href);
     //console.log(url.host);
     let pre = "wss";
     if(url.host === "localhost:8000"){
         pre = "ws"
     }
-    const room_id =url.searchParams.get("room_id");
-    document.getElementById("room_id").innerText = room_id;
-    const socket = new WebSocket(
-        `${pre}://${url.host}/join_lobby?name=${myUsername}&room=${room_id}`,
+    //const room_id =url.searchParams.get("room_id");
+    const id = Math.floor(Math.random()*10**6);
+    socket = new WebSocket(
+        `${pre}://${url.host}/connect?id=${id}`,
     );
     console.log(socket);
 
@@ -47,8 +47,18 @@ function switchSocketEvent(data) {
 }
 
 //default event listener
+/* 
 setSocketEventListener('update_players',(data)=>{
     // refresh displayed user list
     console.log(stringJSON2map(data.players));
     return;
 });
+*/
+
+export function send(event, data){
+    if(socket?.readyState != 1){return;}
+    socket.send(JSON.stringify({
+        event,
+        data,
+    }));
+}

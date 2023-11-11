@@ -4,7 +4,7 @@ import { EventHandler } from './event.js';
 
 const eventHandler = new EventHandler();
 eventHandler.setEventListener('test', (data)=>{
-
+    console.log(data);
 });
 
 serve(async (req) => {
@@ -14,9 +14,10 @@ serve(async (req) => {
     console.log(pathname);
 
     //web socket
-    if (req.method === 'GET' && pathname === '/join_lobby') {
+    if (req.method === 'GET' && pathname === '/connect') {
         const { socket, response } = Deno.upgradeWebSocket(req);
-        //const user_name = url.searchParams.get('name');
+        const connectId = url.searchParams.get('id');
+        console.log(connectId);
 
         //socket listener================================
         socket.onopen = () => {
