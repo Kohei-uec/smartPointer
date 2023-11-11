@@ -1,7 +1,7 @@
 let socket;
 
 //return the socket
-export async function connectSocket(){
+export async function connectSocket(path){
     //const myUsername = localStorage.getItem("username");
     const url = new URL(window.location.href);
     //console.log(url.host);
@@ -10,9 +10,8 @@ export async function connectSocket(){
         pre = "ws"
     }
     //const room_id =url.searchParams.get("room_id");
-    const id = Math.floor(Math.random()*10**6);
     socket = new WebSocket(
-        `${pre}://${url.host}/connect?id=${id}`,
+        `${pre}://${url.host}${path}`,
     );
     console.log(socket);
 
@@ -35,14 +34,14 @@ export function setSocketEventListener(event, func){
     event2func[event] = func;
 }
 
-function switchSocketEvent(data) {
+function switchSocketEvent(resp) {
     //console.log(data.event);
-    const func = event2func[data.event];
+    const func = event2func[resp.event];
     if (!func) {
-        console.log("unexpected event:", data.event);
+        console.log("unexpected event:", resp.event);
         return;
     }
-    func(data);
+    func(resp.data);
     return;
 }
 
