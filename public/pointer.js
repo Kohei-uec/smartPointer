@@ -1,20 +1,15 @@
 import { connectSocket, setSocketEventListener, send } from './connect.js';
-import { stringJSON2map } from './util.js';
 
-const socket = await connectSocket();
-setSocketEventListener('aaa', (data)=>{
+//connect to screen
+const url = new URL(window.location.href);
+const id = url.searchParams.get('id') - 0;
+console.log(id);
+const socket = await connectSocket(`/pointer?id=${id}`);
+setSocketEventListener('open', (data)=>{
     console.log(data);
+    const id = data.id;
+    document.getElementById('outputId').innerText = 'id:' + id;
 });
-
-socket.onopen = (m)=>{
-    const a = 1, b = 2;
-    send('test', {a,b});
-}
-
-const connectBtn = document.getElementById('connectBtn');
-connectBtn.onclick = ()=>{
-
-};
 
 let alpha=0, beta=0, gamma=0;
 window.addEventListener("deviceorientation", (dat) => {
@@ -23,4 +18,5 @@ window.addEventListener("deviceorientation", (dat) => {
     gamma = dat.gamma;  // y軸（上下）まわりの回転の角度（右に傾けるとプラス）
 
     document.getElementById("output").innerText = `alpha:${alpha}\nbeta:${beta}\ngamma:${gamma}`;
+    send('update',{alpha, beta, gamma});
 });

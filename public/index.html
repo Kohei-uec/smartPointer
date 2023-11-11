@@ -8,13 +8,19 @@
     <meta charset="utf-8">
     <title>Smart Pointer</title>
 
-    <script type="module" src="./main.js"></script>
+    <script type="module">
+      const btn = document.getElementById('btn');
+      btn.onclick = ()=>{
+        const id = document.getElementById('inputNum').value - 0;
+        window.location.href = './pointer.html?id=' + id;
+      };
+    </script>
 
   </head>
   <body>
-    hello world!
-    <button id="connectBtn">connect!</button>
-
-    <div id="output"></div>
+    <a href="./screen.html">screen here</a>
+    <br>
+    <input type="number" id="inputNum"/>
+    <button id="btn">connect to screen</button>
   </body>
 </html>
