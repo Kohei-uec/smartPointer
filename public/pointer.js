@@ -45,7 +45,7 @@ function update(dat){
 
 const btn = document.getElementById('btn');
 btn.onclick = ()=>{
-    update(null)
+    send('indicator');
 };
 
 const btnC = document.getElementById('btnC');

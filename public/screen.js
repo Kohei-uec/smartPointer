@@ -9,6 +9,15 @@ setSocketEventListener('open', (data)=>{
     document.getElementById('outputId').innerText = 'id:' + id;
 });
 
+setSocketEventListener('indicator', ()=>{
+    const indicator = document.getElementById('indicator');
+    if(indicator.style.display === 'none'){
+        indicator.style.display = 'block';
+    }else {
+        indicator.style.display = 'none';
+    }
+});
+
 setSocketEventListener('updatePointer', (data)=>{
     //console.log(data);
     const alpha = data.alpha;
