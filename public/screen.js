@@ -1,5 +1,7 @@
 import { connectSocket, setSocketEventListener, send } from './connect.js';
 
+const pointLight = document.getElementById('pointLight');
+
 const socket = await connectSocket('/screen');
 setSocketEventListener('open', (data)=>{
     console.log(data);
@@ -8,13 +10,14 @@ setSocketEventListener('open', (data)=>{
 });
 
 setSocketEventListener('updatePointer', (data)=>{
-    console.log(data);
+    //console.log(data);
     const alpha = data.alpha;
     const beta = data.beta;
     const gamma = data.gamma;
     const p1 = angle2position(alpha);
     
     document.getElementById("output").innerText = `alpha:${alpha}\nbeta:${beta}\ngamma:${gamma}\np1:${p1}`;
+    pointLight.style.left = ((p1+1)/2 * 100) + '%';
 
 });
 
@@ -30,7 +33,7 @@ setSocketEventListener('init position', (data)=>{
 });
 
 function angle2position(alpha){
-    let delta = center.alpha - alpha;
+    let delta = alpha - center.alpha;
     if(delta>180){//鋭角、負
         delta -= 360;
     }
