@@ -1,4 +1,4 @@
-import { connectSocket, setSocketEventListener, send } from './extension.connect.js';
+import { connectSocket, setSocketEventListener, send } from 'https://smartpointer.deno.dev/extension.connect.js';
 
 const pointLight = document.getElementById('pointLight');
 
