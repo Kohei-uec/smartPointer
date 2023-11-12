@@ -83,12 +83,12 @@ class Point{
 }
 const point = new Point();
 
-function angle2liner(z, l, r){
+function angle2liner(z, l, r){// -1.0 ~~ +1.0
     const t = Math.tan(deg2rad(z));
     const t_max = Math.tan(deg2rad(l));
     const t_min = Math.tan(deg2rad(r));
 
-    let pos = t/(t_max - t_min);
+    let pos = t/(t_max - t_min) * 2;
     if(pos > 1){pos = 1;}
     else if(pos < -1){pos  =-1;}
 
