@@ -85,7 +85,7 @@ class Room {
 }
 
 function newKey(map, d = 4) {
-    return 0;
+    //return 0;
     let r;
     do {
         r = Math.floor(Math.random() * 10 ** d);

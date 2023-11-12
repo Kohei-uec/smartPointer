@@ -11,6 +11,10 @@ setSocketEventListener('open', (data)=>{
     document.getElementById('outputId').innerText = 'id:' + id;
 });
 
+socket.onclose = ()=>{
+    location.href = "./index.html";
+}
+
 const position = {
     alpha:0,
     beta:0,
