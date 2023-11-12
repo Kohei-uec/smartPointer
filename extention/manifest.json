@@ -1,17 +1,30 @@
 {
-    "manifest_version": 2,
+    "manifest_version": 3,
     "name": "Smart Pointer",
     "version": "1.0",
     "description": "add pointer controlled by smart phone",
     "content_scripts": [{
-      "matches": ["<all_urls>"],
-      "js": ["content.js"],
-      "css":["screen.css"]
+        "matches": [ "<all_urls>" ],
+        "js": [
+            "loader.js"
+        ],
+        "css":["screen.css"],
+        "run_at":"document_end"
     }],
-    "permissions": [
-      "activeTab"
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "/content.js",
+                "/connect.js"
+            ],
+            "matches": ["<all_urls>"]
+        }
     ],
-    "browser_action": {
+    "permissions": [
+      "activeTab",
+      "storage"
+    ],
+    "action": {
         "default_icon": {
             "16": "/icon16.png",
             "32": "/icon32.png"
