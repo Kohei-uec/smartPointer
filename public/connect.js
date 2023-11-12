@@ -4,9 +4,9 @@ let socket;
 export async function connectSocket(path){
     //const myUsername = localStorage.getItem("username");
     const url = new URL(window.location.href);
-    //console.log(url.host);
+    //console.log(url);
     let pre = "wss";
-    if(url.host === "localhost:8000"){
+    if(url.protocol === 'http:'){
         pre = "ws"
     }
     //const room_id =url.searchParams.get("room_id");
@@ -22,11 +22,12 @@ export async function connectSocket(path){
 
     socket.onclose = (m) => {
         console.log(m)
-        location.href = "./index.html";
+        //location.href = "./index.html";
     }
 
     return socket;
 }
+
 
 const event2func = {};
 

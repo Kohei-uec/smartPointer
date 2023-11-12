@@ -28,6 +28,9 @@ export class World{
 
     //退室管理
     exit(id, member){
+        if(this.findRoom(id) === null){
+            return;
+        }
         const room = this.findRoom(id);
         if(member === 'screen'){
             room.screenSocket = null;

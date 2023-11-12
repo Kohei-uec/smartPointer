@@ -11,14 +11,19 @@ setSocketEventListener('open', (data)=>{
     document.getElementById('outputId').innerText = 'id:' + id;
 });
 
-let alpha=0, beta=0, gamma=0;
-window.addEventListener("deviceorientation", (dat) => {
-    alpha = dat.alpha;  // z軸（表裏）まわりの回転の角度（反時計回りがプラス）
-    beta  = dat.beta;   // x軸（左右）まわりの回転の角度（引き起こすとプラス）
-    gamma = dat.gamma;  // y軸（上下）まわりの回転の角度（右に傾けるとプラス）
+const position = {
+    alpha:0,
+    beta:0,
+    gamma:0,
+};
 
-    document.getElementById("output").innerText = `alpha:${alpha}\nbeta:${beta}\ngamma:${gamma}`;
-    send('updatePointer',{alpha, beta, gamma});
+window.addEventListener("deviceorientation", (dat) => {
+    position.alpha = dat.alpha;  // z軸（表裏）まわりの回転の角度（反時計回りがプラス）
+    position.beta  = dat.beta;   // x軸（左右）まわりの回転の角度（引き起こすとプラス）
+    position.gamma = dat.gamma;  // y軸（上下）まわりの回転の角度（右に傾けるとプラス）
+
+    document.getElementById("output").innerText = JSON.stringify(position);
+    send('updatePointer',position);
 });
 
 const btn = document.getElementById('btn');

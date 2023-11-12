@@ -9,6 +9,7 @@ serve(async (req) => {
     const pathname = url.pathname;
 
     //console.log(pathname);
+    //console.log(world.rooms.size);
 
     //web socket for pointer
     if (req.method === 'GET' && pathname === '/pointer') {
@@ -33,7 +34,7 @@ serve(async (req) => {
             console.log('socket errored:', e);
         };
         socket.onclose = () => {
-            world.exit('pointer');
+            world.exit(room.id, 'pointer');
         };
 
         return response;
@@ -60,7 +61,7 @@ serve(async (req) => {
             console.log('socket errored:', e);
         };
         socket.onclose = () => {
-            world.exit('screen');
+            world.exit(room.id, 'screen');
         };
 
         return response;
@@ -72,4 +73,4 @@ serve(async (req) => {
         showDirListing: true,
         enableCors: true,
     });
-});
+},{hostname:'192.168.2.100',});
