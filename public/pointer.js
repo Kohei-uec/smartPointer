@@ -48,3 +48,39 @@ btn.onclick = ()=>{
     update(null)
 };
 
+const btnC = document.getElementById('btnC');
+const btnL = document.getElementById('btnL');
+const btnR = document.getElementById('btnR');
+const btnT = document.getElementById('btnT');
+const btnB = document.getElementById('btnB');
+
+btnC.onclick = ()=>{
+    send('init position',{
+        name: 'center',
+        position,
+    })
+}
+btnL.onclick = ()=>{
+    send('init position',{
+        name: 'left',
+        position,
+    })
+}
+btnR.onclick = ()=>{
+    send('init position',{
+        name: 'right',
+        position,
+    })
+}
+btnT.onclick = ()=>{
+    send('init position',{
+        name: 'top',
+        position,
+    })
+}
+btnB.onclick = ()=>{
+    send('init position',{
+        name: 'bottom',
+        position,
+    })
+}

@@ -16,7 +16,7 @@ setSocketEventListener('updatePointer', (data)=>{
     const gamma = data.gamma;
     const p = point.getPosition(data);
     
-    document.getElementById("output").innerText = JSON.stringify(data) + JSON.stringify(p);
+    document.getElementById("output").innerText = JSON.stringify(data)+ '\n' + JSON.stringify(p);
     pointLight.style.left = ((-p.x+1)/2 * 100) + '%';
     pointLight.style.top = ((-p.y+1)/2 * 100) + '%';
 
@@ -24,8 +24,8 @@ setSocketEventListener('updatePointer', (data)=>{
 
 
 setSocketEventListener('init position', (data)=>{
-    point.center = data;
-    document.getElementById("outputInit").innerText = JSON.stringify(point.center);
+    point[data.name] = data.position;
+    document.getElementById("outputInit").innerText = JSON.stringify(point[data.name]);
 
 });
 
