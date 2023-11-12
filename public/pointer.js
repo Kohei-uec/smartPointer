@@ -28,6 +28,6 @@ window.addEventListener("deviceorientation", (dat) => {
 
 const btn = document.getElementById('btn');
 btn.onclick = ()=>{
-    send('init position',{alpha, beta, gamma});
+    send('init position',position);
 };
 
