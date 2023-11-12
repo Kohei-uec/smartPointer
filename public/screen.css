@@ -1,7 +1,7 @@
 #pointLight {
     position: fixed;
-    top: calc(50% - 5px);
-    left: calc(50% - 5px);
+    top: 50%;
+    left: 50%;
 
     width: 10px;
     height: 10px;

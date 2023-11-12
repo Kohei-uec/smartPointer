@@ -16,7 +16,7 @@ setSocketEventListener('updatePointer', (data)=>{
     const gamma = data.gamma;
     const p = point.getPosition(data);
     
-    document.getElementById("output").innerText = `alpha:${alpha}\nbeta:${beta}\ngamma:${gamma}\np1:${p1}`;
+    document.getElementById("output").innerText = JSON.stringify(data) + JSON.stringify(p);
     pointLight.style.left = ((-p.x+1)/2 * 100) + '%';
     pointLight.style.top = ((-p.y+1)/2 * 100) + '%';
 
@@ -65,11 +65,19 @@ class Point{
         const zeta = oriAdd(oriSub(v, this.center),theta);
         const l = oriAdd(theta, a);
         const r = oriSub(theta, b);
-        //console.log(a,b,theta,zeta,l,r);
 
         const x = angle2liner(zeta.alpha, l.alpha, r.alpha);
-        const y = angle2liner(zeta.beta, l.beta, r.beta);
 
+        const c = oriSubAbs(this.top , this.center);
+        const d = oriSubAbs(this.center , this.bottom);
+        const eps = oriMul(oriSub(d, c), 0.5);
+        const del = oriAdd(oriSub(v, this.center),eps);
+        const top = oriAdd(eps, c);
+        const bottom = oriSub(eps, d);
+        //console.log(a,b,theta,zeta,l,r);
+
+        const y = angle2liner(del.beta, top.beta, bottom.beta);
+        
         return {x, y};
     }
 }
@@ -80,7 +88,11 @@ function angle2liner(z, l, r){
     const t_max = Math.tan(deg2rad(l));
     const t_min = Math.tan(deg2rad(r));
 
-    return t/(t_max - t_min);
+    let pos = t/(t_max - t_min);
+    if(pos > 1){pos = 1;}
+    else if(pos < -1){pos  =-1;}
+
+    return pos;
 }
 
 function deg2rad(deg){

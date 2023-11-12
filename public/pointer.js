@@ -17,17 +17,34 @@ const position = {
     gamma:0,
 };
 
+let i = 0;
 window.addEventListener("deviceorientation", (dat) => {
-    position.alpha = dat.alpha;  // z軸（表裏）まわりの回転の角度（反時計回りがプラス）
-    position.beta  = dat.beta;   // x軸（左右）まわりの回転の角度（引き起こすとプラス）
-    position.gamma = dat.gamma;  // y軸（上下）まわりの回転の角度（右に傾けるとプラス）
+    update(dat);
+});
 
+function update(dat){
+
+    if(dat === null){
+        position.alpha = i;
+        position.beta = i-180;
+        position.gamma = i-180;
+
+        i++;
+        if(i>360){
+            i = 0;
+        }
+    } else {
+        position.alpha = dat.alpha;  // z軸（表裏）まわりの回転の角度（反時計回りがプラス）
+        position.beta  = dat.beta;   // x軸（左右）まわりの回転の角度（引き起こすとプラス）
+        position.gamma = dat.gamma;  // y軸（上下）まわりの回転の角度（右に傾けるとプラス）
+    
+    }
     document.getElementById("output").innerText = JSON.stringify(position);
     send('updatePointer',position);
-});
+}
 
 const btn = document.getElementById('btn');
 btn.onclick = ()=>{
-    send('init position',position);
+    update(null)
 };
 
