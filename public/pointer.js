@@ -39,14 +39,20 @@ function update(dat){
         position.gamma = dat.gamma;  // y軸（上下）まわりの回転の角度（右に傾けるとプラス）
     
     }
-    document.getElementById("output").innerText = JSON.stringify(position);
+    //document.getElementById("output").innerText = JSON.stringify(position);
     send('updatePointer',position);
 }
 
+/*
 const btn = document.getElementById('btn');
 btn.onclick = ()=>{
     send('indicator');
 };
+*/
+const check = document.getElementById('setting-btn-check')
+check.oninput = ()=>{
+    send('indicator', {state: check.checked});
+}
 
 const btnC = document.getElementById('btnC');
 const btnL = document.getElementById('btnL');

@@ -9,11 +9,11 @@ setSocketEventListener('open', (data)=>{
     document.getElementById('outputId').innerText = 'id:' + id;
 });
 
-setSocketEventListener('indicator', ()=>{
+setSocketEventListener('indicator', (data)=>{
     const indicator = document.getElementById('indicator');
-    if(indicator.style.display === 'none'){
+    if(data.state){
         indicator.style.display = 'block';
-    }else {
+    }else{
         indicator.style.display = 'none';
     }
 });
@@ -25,7 +25,7 @@ setSocketEventListener('updatePointer', (data)=>{
     const gamma = data.gamma;
     const p = point.getPosition(data);
     
-    document.getElementById("output").innerText = JSON.stringify(data)+ '\n' + JSON.stringify(p);
+    //document.getElementById("output").innerText = JSON.stringify(data)+ '\n' + JSON.stringify(p);
     pointLight.style.left = ((-p.x+1)/2 * 100) + '%';
     pointLight.style.top = ((-p.y+1)/2 * 100) + '%';
 
@@ -34,8 +34,7 @@ setSocketEventListener('updatePointer', (data)=>{
 
 setSocketEventListener('init position', (data)=>{
     point[data.name] = data.position;
-    document.getElementById("outputInit").innerText = JSON.stringify(point[data.name]);
-
+    //document.getElementById("outputInit").innerText = JSON.stringify(point[data.name]);
 });
 
 class Point{

@@ -8,17 +8,31 @@
     <meta charset="utf-8">
     <title>Smart Pointer</title>
 
+    <link rel="stylesheet" href="./pointer.css">
     <script type="module" src="./pointer.js"></script>
 
   </head>
   <body>
-    <button id="btn">indicator</button>
-    <button id="btnC">center</button>
-    <button id="btnL">left</button>
-    <button id="btnR">right</button>
-    <button id="btnT">top</button>
-    <button id="btnB">bottom</button>
     <div id="outputId"></div>
     <div id="output"></div>
+    <div class="wrap">
+      <img src="./pointer.png" />
+    </div>
+
+    <input type="checkbox" id="setting-btn-check">
+    <label for="setting-btn-check" class="setting-btn"><span></span></label>
+    <div class="setting">
+      <!-- <button id="btn">indicator</button> -->
+      <div class="wrapBtns">
+        <div class="btns">
+          <button id="btnC" class="circleBtn center">center</button>
+          <button id="btnL" class="circleBtn left">left</button>
+          <button id="btnR" class="circleBtn right">right</button>
+          <button id="btnT" class="circleBtn top">top</button>
+          <button id="btnB" class="circleBtn bottom">bottom</button>  
+        </div>
+      </div>
+    </div>
+
   </body>
 </html>
