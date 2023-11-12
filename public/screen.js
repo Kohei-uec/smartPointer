@@ -30,6 +30,8 @@ setSocketEventListener('init position', (data)=>{
     center.alpha = data.alpha;
     center.beta = data.beta;
     center.gamma = data.gamma;
+    document.getElementById("outputInit").innerText = JSON.stringify(center);
+
 });
 
 function angle2position(alpha){
