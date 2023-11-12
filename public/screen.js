@@ -7,11 +7,12 @@ setSocketEventListener('open', (data)=>{
     document.getElementById('outputId').innerText = 'id:' + id;
 });
 
-setSocketEventListener('update', (data)=>{
+setSocketEventListener('updatePointer', (data)=>{
+    console.log(data);
     const alpha = data.alpha;
     const beta = data.beta;
     const gamma = data.gamma;
-    p1 = angle2position(alpha);
+    const p1 = angle2position(alpha);
     
     document.getElementById("output").innerText = `alpha:${alpha}\nbeta:${beta}\ngamma:${gamma}\np1:${p1}`;
 
