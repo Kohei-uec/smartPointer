@@ -17,7 +17,7 @@ setSocketEventListener('updatePointer', (data)=>{
     const p1 = angle2position(alpha);
     
     document.getElementById("output").innerText = `alpha:${alpha}\nbeta:${beta}\ngamma:${gamma}\np1:${p1}`;
-    pointLight.style.left = (-(p1+1)/2 * 100) + '%';
+    pointLight.style.left = ((-p1+1)/2 * 100) + '%';
 
 });
 
