@@ -1,10 +1,16 @@
-#pointLight {
+.wrapSmartPointer {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    z-index: 2147483647;
+}
+#pointLightSmartPointer {
     position: fixed;
     top: 50%;
     left: 50%;
     z-index: 100;
 }
-#pointLight::after{
+#pointLightSmartPointer::after{
     content: '';
     display: block;
     width: 10px;
@@ -17,7 +23,7 @@
     left: -5px;
 }
 
-.circle::after{
+.circleSmartPointer::after{
     content: '';
     display: block;
     width: 100px;
@@ -30,27 +36,27 @@
     left: -50px;
 }
 
-.top {
+.topSmartPointer {
     position: fixed;
     top: 0;
     left: 50%;
 }
-.bottom {
+.bottomSmartPointer {
     position: fixed;
     bottom: 0;
     left: 50%;
 }
-.left {
+.leftSmartPointer {
     position: fixed;
     top: 50%;
     left: 0;
 }
-.right {
+.rightSmartPointer {
     position: fixed;
     top: 50%;
     right: 0;
 }
-.center {
+.centerSmartPointer {
     position: fixed;
     top: 50%;
     left: 50%;
