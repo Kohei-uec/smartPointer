@@ -107,17 +107,18 @@
 
 
 .setting{
-    background-color: #ccc;
+    background-color: rgba(204, 204, 204, 0.5);
     position: fixed;
     bottom: -110%;
     right: 0;
-    height: 50vh;
+    height: calc(100vh - 60px);
     width: 100%;
+    overflow-y: scroll;
     z-index: 199;
     transition-duration: 0.2s;
 
     text-align: center;
 }
 #setting-btn-check:checked ~ .setting{
-    bottom: 0;
+    bottom: 60px;
 }

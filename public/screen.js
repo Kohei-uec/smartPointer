@@ -37,6 +37,15 @@ setSocketEventListener('init position', (data)=>{
     //document.getElementById("outputInit").innerText = JSON.stringify(point[data.name]);
 });
 
+setSocketEventListener('changePointer', (data)=>{
+    console.log(data.style);
+    if(data.style){
+        Object.keys(data.style).forEach((key)=>{
+            pointLight.style[key] = data.style[key];
+        });
+    }
+});
+
 class Point{
     constructor(){
         this.center = {

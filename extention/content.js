@@ -79,6 +79,15 @@ chrome.runtime.onMessage.addListener(async function(msg, sender, sendResponse) {
         setSocketEventListener('init position', (data)=>{
             point[data.name] = data.position;
         });
+
+        setSocketEventListener('changePointer', (data)=>{
+            if(data.style){
+                Object.keys(data.style).forEach((key)=>{
+                    pointLight.style[key] = data.style[key];
+                });
+            }
+        });
+        
     }   
 });
 

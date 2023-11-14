@@ -8,19 +8,12 @@
     position: fixed;
     top: 50%;
     left: 50%;
-    z-index: 100;
-}
-#pointLightSmartPointer::after{
-    content: '';
+
     display: block;
     width: 10px;
     height: 10px;
     border-radius: 5px;
     background-color: red;
-
-    position: absolute;
-    top: -5px;
-    left: -5px;
 }
 
 .circleSmartPointer::after{

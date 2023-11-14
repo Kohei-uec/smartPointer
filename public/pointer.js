@@ -94,3 +94,23 @@ btnB.onclick = ()=>{
         position,
     })
 }
+
+
+//change pointer style 
+const colorPicker = document.getElementById('color');
+colorPicker.addEventListener('change', (e)=>{
+    const color = colorPicker.value;
+    console.log(color);
+    send('changePointer', {style: {"background-color":color}});
+});
+
+const sizeInput = document.getElementById('size');
+sizeInput.addEventListener('change', (e)=>{
+    const size = sizeInput.value;
+    console.log(size);
+    send('changePointer', {style: {
+        'width': `${size}px`,
+        'height': `${size}px`,
+        'border-radius': `${size/2}px`,
+    }});
+});
