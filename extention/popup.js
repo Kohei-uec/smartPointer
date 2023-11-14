@@ -4,8 +4,7 @@ const endBtn = document.getElementById('endBtn');
 
 chrome.storage.session.get("output", (v)=>{
     let output = v.output;
-    if(output.includes('id:')){
-        //const id = output.substring(output.indexOf('id:') + 3);
+    if(output && output.includes('id:')){
         showId(output);
     }
 });
@@ -36,6 +35,12 @@ const showId = function(msg) {
     chrome.storage.session.set({'output':msg});
     console.log("result message:", msg);
     document.getElementById('outputId').innerText = msg;
+
+    if(msg.includes('id:')){
+        const id = msg.substring(msg.indexOf('id:') + 3);
+        //createQR(id);
+    }
+      
 }
 
 function getCurrentTab(callback) {
@@ -46,4 +51,18 @@ function getCurrentTab(callback) {
         // `tab` will either be a `tabs.Tab` instance or `undefined`.
         callback(tab);
     });
+}
+
+const qr = new QRCode(document.getElementById("qrOutput"), {
+    text: 'https://smartpointer.deno.dev/',
+    width: 64,
+    height: 64,
+    colorDark : "#000000",
+    colorLight : "#ffffff",
+    correctLevel : QRCode.CorrectLevel.L
+});
+function createQR(id){
+    const query = 'https://smartpointer.deno.dev/pointer.html?id=' + id;
+    // QRコードの生成
+    qr.makeCode(query);
 }

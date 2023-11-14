@@ -29,6 +29,7 @@ chrome.runtime.onMessage.addListener(async function(msg, sender, sendResponse) {
     }else if (msg.command && (msg.command == "start")) {
         if(socket !== null){
             socket?.close();
+            e.remove();
         }
         const tabId = msg.tabId;
         sendResponse('connecting...');
