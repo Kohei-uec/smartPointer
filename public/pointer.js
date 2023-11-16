@@ -11,8 +11,9 @@ setSocketEventListener('open', (data)=>{
     document.getElementById('outputId').innerText = 'id:' + id;
 });
 
-socket.onclose = ()=>{
-    location.href = "./index.html";
+socket.onclose = (e)=>{
+    document.getElementsById('output').innerText = e;
+    //location.href = "./index.html";
 }
 
 const position = {
