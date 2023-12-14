@@ -23,7 +23,7 @@ const position = {
 };
 
 let i = 0;
-let delay = 100; //[ms]
+let delay = 50; //[ms]
 let preSendTime = 0;
 window.addEventListener("deviceorientation", (dat) => {
     //一定時間経過後に処理

@@ -10,7 +10,7 @@ setSocketEventListener('open', (data)=>{
 });
 
 //key code
-setSocketEventListener('indicator', (data)=>{
+setSocketEventListener('key', (data)=>{
     document.dispatchEvent( new KeyboardEvent( "keydown", { keyCode: data.code }));
 });
 
