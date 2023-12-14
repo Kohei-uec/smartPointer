@@ -8,8 +8,9 @@ body {
 }
 
 button {
-    padding: 1em;
+    padding: 0.5em;
     border-radius: 0.5em;
+    background-color: rgb(242, 253, 230);
 }
 
 div {

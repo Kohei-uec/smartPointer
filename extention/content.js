@@ -44,17 +44,17 @@ chrome.runtime.onMessage.addListener(async function(msg, sender, sendResponse) {
         socket.onclose = (m)=>{
             console.log(m);
             e.remove();
-            sendResponse('disconnected');
             socket = null;
+            chrome.runtime.sendMessage(
+                {command: 'ws close'}
+            );
         }
         setSocketEventListener('open', (data)=>{
             console.log(data);
             const id = data.id;
-            //chrome.storage.local.set({id: id});
-            sendResponse('id:' + id)
 
             chrome.runtime.sendMessage(
-                {command: 'connected', id:id }
+                {command: 'ws open', id:id }
             );
         });
         

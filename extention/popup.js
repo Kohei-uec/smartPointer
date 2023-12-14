@@ -2,45 +2,45 @@
 const startBtn = document.getElementById('button');
 const endBtn = document.getElementById('endBtn');
 
-chrome.storage.session.get("output", (v)=>{
+delQR();
+chrome.storage.session.get("msg", (v)=>{
     let output = v.output;
-    if(output && output.includes('id:')){
-        showId(output);
+    if(output){
+        showMsg(output);
     }
 });
 
 endBtn.addEventListener('click', (event)=>{
     getCurrentTab((tab)=>{
         console.log(tab);
-        chrome.tabs.sendMessage(tab.id, {command: "end"},(e)=>showId(e));
+        chrome.tabs.sendMessage(tab.id, {command: "end"},(e)=>showMsg(e));
     });
 });
 
 startBtn.addEventListener('click', async (event) => {
     getCurrentTab((tab)=>{
         console.log(tab);
-        chrome.tabs.sendMessage(tab.id, {command: "start"},(e)=>showId(e));
+        chrome.tabs.sendMessage(tab.id, {command: "start"},(e)=>showMsg(e));
     });
 });
 
 chrome.runtime.onMessage.addListener(async function(msg, sender, sendResponse) {
     console.log('reserved', msg);
-    if (msg.command && (msg.command == "connected")) {
-        showId('id:' + msg.id);
+    if (msg.command && (msg.command == "ws open")) {
+        showMsg('connected id:' + msg.id);
+        createQR(msg.id);
+        sendResponse();
+    }else if (msg.command && (msg.command == "ws close")) {
+        showMsg('disconnected');
+        delQR();
         sendResponse();
     }
 });
 
-const showId = function(msg) {
-    chrome.storage.session.set({'output':msg});
+const showMsg = function(msg) {
+    chrome.storage.session.set({'msg':msg});
     console.log("result message:", msg);
-    document.getElementById('outputId').innerText = msg;
-
-    if(msg.includes('id:')){
-        const id = msg.substring(msg.indexOf('id:') + 3);
-        //createQR(id);
-    }
-      
+    document.getElementById('output').innerText = msg;    
 }
 
 function getCurrentTab(callback) {
@@ -65,4 +65,8 @@ function createQR(id){
     const query = 'https://smartpointer.deno.dev/pointer.html?id=' + id;
     // QRコードの生成
     qr.makeCode(query);
+    document.getElementById("qrOutput").style.display = 'block';
+}
+function delQR(){
+    document.getElementById("qrOutput").style.display = 'none';
 }
