@@ -9,6 +9,11 @@ setSocketEventListener('open', (data)=>{
     document.getElementById('outputId').innerText = 'id:' + id;
 });
 
+//key code
+setSocketEventListener('indicator', (data)=>{
+    document.dispatchEvent( new KeyboardEvent( "keydown", { keyCode: data.code }));
+});
+
 setSocketEventListener('indicator', (data)=>{
     const indicator = document.getElementById('indicator');
     if(data.state){

@@ -22,13 +22,26 @@
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
 }
+.circleBtn2{
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    background-color: rgb(233, 233, 233);
+    font-size: xx-large;
+}
+.btns2 {
+    display: block;
+    margin: 10px;
+    text-align: center;
+}
 
 .circleBtn{
     display: block;
     width: 100px;
     height: 100px;
     border-radius: 50px;
-    background-color: rgba(153, 255, 0, 0.5);
+    background-color: rgba(153, 255, 0, 0.7);
 }
 
 .top {

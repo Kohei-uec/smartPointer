@@ -23,8 +23,15 @@ const position = {
 };
 
 let i = 0;
+let delay = 100; //[ms]
+let preSendTime = 0;
 window.addEventListener("deviceorientation", (dat) => {
-    update(dat);
+    //一定時間経過後に処理
+    const now = Date.now();
+    if(now - preSendTime  >= delay){
+        preSendTime = now;
+        update(dat);
+    }
 });
 
 function update(dat){
@@ -115,3 +122,21 @@ sizeInput.addEventListener('change', (e)=>{
         'border-radius': `${size/2}px`,
     }});
 });
+
+const delayInput = document.getElementById('delay');
+delayInput.addEventListener('change', (e)=>{
+    delay = delayInput.value -0;
+});
+
+//arrow L R
+document.getElementById('arrowL').onclick = ()=> {
+    send('key',{
+        code: 37,
+    });
+};
+
+document.getElementById('arrowR').onclick = ()=> {
+    send('key',{
+        code: 39,
+    });
+};
