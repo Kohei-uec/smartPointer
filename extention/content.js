@@ -89,8 +89,9 @@ chrome.runtime.onMessage.addListener(async function(msg, sender, sendResponse) {
         });
 
         //key code
-        setSocketEventListener('indicator', (data)=>{
-            document.dispatchEvent( new KeyboardEvent( "keydown", { keyCode: data.code }));
+        setSocketEventListener('key', (data)=>{
+            console.log(data.code);
+            document.dispatchEvent( new KeyboardEvent( "keydown", { keyCode: data.code-0 }));
         });
     }   
 });

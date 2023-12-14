@@ -4,11 +4,18 @@ const endBtn = document.getElementById('endBtn');
 
 delQR();
 chrome.storage.session.get("msg", (v)=>{
-    let output = v.output;
-    if(output){
-        showMsg(output);
+    let msg = v.msg;
+    if(msg){
+        showMsg(msg);
+        chrome.storage.session.get("id", (v)=>{
+            let id = v.id;
+            if(id){
+                createQR(id);
+            }
+        });
     }
 });
+
 
 endBtn.addEventListener('click', (event)=>{
     getCurrentTab((tab)=>{
@@ -28,6 +35,7 @@ chrome.runtime.onMessage.addListener(async function(msg, sender, sendResponse) {
     console.log('reserved', msg);
     if (msg.command && (msg.command == "ws open")) {
         showMsg('connected id:' + msg.id);
+        chrome.storage.session.set({'id':msg.id});
         createQR(msg.id);
         sendResponse();
     }else if (msg.command && (msg.command == "ws close")) {

@@ -129,14 +129,14 @@ delayInput.addEventListener('change', (e)=>{
 });
 
 //arrow L R
-document.getElementById('arrowL').onclick = ()=> {
+document.getElementById('arrowL').addEventListener('click', ()=> {
     send('key',{
         code: 37,
     });
-};
+});
 
-document.getElementById('arrowR').onclick = ()=> {
+document.getElementById('arrowR').addEventListener('click', ()=> {
     send('key',{
         code: 39,
     });
-};
+});
