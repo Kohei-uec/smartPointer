@@ -28,7 +28,7 @@ export function setSocketEventListener(event, func){
 }
 
 function switchSocketEvent(resp) {
-    //console.log(data.event);
+    console.log(data.event);
     const func = event2func[resp.event];
     if (!func) {
         console.log("unexpected event:", resp.event);
