@@ -141,15 +141,13 @@ document.getElementById('arrowR').addEventListener('click', () => {
 });
 
 //on off
-document.getElementById('onoff').addEventListener('mousedown', () => {
-    send('turnOnPointer');
-});
-document.getElementById('onoff').addEventListener('mouseup', () => {
-    send('turnOffPointer');
-});
-document.getElementById('onoff').addEventListener('touchstart', () => {
-    send('turnOnPointer');
-});
-document.getElementById('onoff').addEventListener('touchend', () => {
-    send('turnOffPointer');
+let lightSwitch = false;
+document.getElementById('onoff').addEventListener('click', () => {
+    if (lightSwitch) {
+        send('turnOffPointer');
+        lightSwitch = false;
+    } else {
+        send('turnOnPointer');
+        lightSwitch = true;
+    }
 });
