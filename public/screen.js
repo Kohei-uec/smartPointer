@@ -50,11 +50,11 @@ setSocketEventListener('changePointer', (data) => {
 });
 
 //on off
-document.getElementById('onoff').addEventListener('mousedown', () => {
-    send('turnOnPointer');
+setSocketEventListener('turnOffPointer', (data) => {
+    pointLight.style.display = 'none';
 });
-document.getElementById('onoff').addEventListener('mouseup', () => {
-    send('turnOffPointer');
+setSocketEventListener('turnOnPointer', (data) => {
+    pointLight.style.display = 'block';
 });
 
 class Point {
