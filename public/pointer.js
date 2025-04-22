@@ -147,3 +147,9 @@ document.getElementById('onoff').addEventListener('mousedown', () => {
 document.getElementById('onoff').addEventListener('mouseup', () => {
     send('turnOffPointer');
 });
+document.getElementById('onoff').addEventListener('touchstart', () => {
+    send('turnOnPointer');
+});
+document.getElementById('onoff').addEventListener('touchend', () => {
+    send('turnOffPointer');
+});
