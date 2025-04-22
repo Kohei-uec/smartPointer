@@ -20,14 +20,14 @@ let socket = null;
 
 /* Listen for messages */
 console.log('load smart pointer');
-chrome.runtime.onMessage.addListener(async function(msg, sender, sendResponse) {
-    if (msg.command && (msg.command == "end")) {
+chrome.runtime.onMessage.addListener(async function (msg, sender, sendResponse) {
+    if (msg.command && msg.command == 'end') {
         socket?.close();
         e.remove();
         sendResponse('disconnected');
         socket = null;
-    }else if (msg.command && (msg.command == "start")) {
-        if(socket !== null){
+    } else if (msg.command && msg.command == 'start') {
+        if (socket !== null) {
             socket?.close();
             e.remove();
         }
@@ -36,169 +36,173 @@ chrome.runtime.onMessage.addListener(async function(msg, sender, sendResponse) {
         console.log('start');
         document.getElementsByTagName('body')[0].appendChild(e);
 
-
         const pointLight = document.getElementById('pointLightSmartPointer');
         const point = new Point();
 
         socket = await connectSocket('/screen');
-        socket.onclose = (m)=>{
+        socket.onclose = (m) => {
             console.log(m);
             e.remove();
             socket = null;
-            chrome.runtime.sendMessage(
-                {command: 'ws close'}
-            );
-        }
-        setSocketEventListener('open', (data)=>{
+            chrome.runtime.sendMessage({ command: 'ws close' });
+        };
+        setSocketEventListener('open', (data) => {
             console.log(data);
             const id = data.id;
 
-            chrome.runtime.sendMessage(
-                {command: 'ws open', id:id }
-            );
+            chrome.runtime.sendMessage({ command: 'ws open', id: id });
         });
-        
-        setSocketEventListener('indicator', (data)=>{
+
+        setSocketEventListener('indicator', (data) => {
             const indicator = document.getElementById('indicatorSmartPointer');
-            if(data.state){
+            if (data.state) {
                 indicator.style.display = 'block';
-            }else{
+            } else {
                 indicator.style.display = 'none';
             }
         });
-        
-        setSocketEventListener('updatePointer', (data)=>{
+
+        setSocketEventListener('updatePointer', (data) => {
             //console.log(data);
             const p = point.getPosition(data);
-            
-            pointLight.style.left = ((-p.x+1)/2 * 100) + '%';
-            pointLight.style.top = ((-p.y+1)/2 * 100) + '%';
-        
+
+            pointLight.style.left = ((-p.x + 1) / 2) * 100 + '%';
+            pointLight.style.top = ((-p.y + 1) / 2) * 100 + '%';
         });
-        
-        setSocketEventListener('init position', (data)=>{
+
+        setSocketEventListener('init position', (data) => {
             point[data.name] = data.position;
         });
 
-        setSocketEventListener('changePointer', (data)=>{
-            if(data.style){
-                Object.keys(data.style).forEach((key)=>{
+        setSocketEventListener('changePointer', (data) => {
+            if (data.style) {
+                Object.keys(data.style).forEach((key) => {
                     pointLight.style[key] = data.style[key];
                 });
             }
         });
+        setSocketEventListener('turnOffPointer', (data) => {
+            pointLight.style.display = 'none';
+        });
+        setSocketEventListener('turnOnPointer', (data) => {
+            pointLight.style.display = 'block';
+        });
 
         //key code
-        setSocketEventListener('key', (data)=>{
+        setSocketEventListener('key', (data) => {
             console.log(data.code);
-            document.dispatchEvent( new KeyboardEvent( "keydown", { keyCode: data.code-0 }));
+            document.dispatchEvent(new KeyboardEvent('keydown', { keyCode: data.code - 0 }));
         });
-    }   
+    }
 });
 
-class Point{
-    constructor(){
+class Point {
+    constructor() {
         this.center = {
-            alpha:0,
-            beta:0,
-            gamma:0,
-        }
+            alpha: 0,
+            beta: 0,
+            gamma: 0,
+        };
         this.left = {
-            alpha:30,
-            beta:0,
-            gamma:0,
-        }
+            alpha: 30,
+            beta: 0,
+            gamma: 0,
+        };
         this.right = {
-            alpha:330,
-            beta:0,
-            gamma:0,
-        }
+            alpha: 330,
+            beta: 0,
+            gamma: 0,
+        };
         this.top = {
-            alpha:0,
-            beta:30,
-            gamma:0,
-        }
+            alpha: 0,
+            beta: 30,
+            gamma: 0,
+        };
         this.bottom = {
-            alpha:0,
-            beta:-30,
-            gamma:0,
-        }
+            alpha: 0,
+            beta: -30,
+            gamma: 0,
+        };
     }
 
-    getPosition(v){
-        const a = oriSubAbs(this.left , this.center);
-        const b = oriSubAbs(this.center , this.right);
+    getPosition(v) {
+        const a = oriSubAbs(this.left, this.center);
+        const b = oriSubAbs(this.center, this.right);
         const theta = oriMul(oriSub(b, a), 0.5);
-        const zeta = oriAdd(oriSub(v, this.center),theta);
+        const zeta = oriAdd(oriSub(v, this.center), theta);
         const l = oriAdd(theta, a);
         const r = oriSub(theta, b);
 
         const x = angle2liner(zeta.alpha, l.alpha, r.alpha);
 
-        const c = oriSubAbs(this.top , this.center);
-        const d = oriSubAbs(this.center , this.bottom);
+        const c = oriSubAbs(this.top, this.center);
+        const d = oriSubAbs(this.center, this.bottom);
         const eps = oriMul(oriSub(d, c), 0.5);
-        const del = oriAdd(oriSub(v, this.center),eps);
+        const del = oriAdd(oriSub(v, this.center), eps);
         const top = oriAdd(eps, c);
         const bottom = oriSub(eps, d);
         //console.log(a,b,theta,zeta,l,r);
 
         const y = angle2liner(del.beta, top.beta, bottom.beta);
-        
-        return {x, y};
+
+        return { x, y };
     }
 }
 
-function angle2liner(z, l, r){// -1.0 ~~ +1.0
+function angle2liner(z, l, r) {
+    // -1.0 ~~ +1.0
     const t = Math.tan(deg2rad(z));
     const t_max = Math.tan(deg2rad(l));
     const t_min = Math.tan(deg2rad(r));
 
-    let pos = t/(t_max - t_min) * 2;
-    if(pos > 1){pos = 1;}
-    else if(pos < -1){pos  =-1;}
+    let pos = (t / (t_max - t_min)) * 2;
+    if (pos > 1) {
+        pos = 1;
+    } else if (pos < -1) {
+        pos = -1;
+    }
 
     return pos;
 }
 
-function deg2rad(deg){
+function deg2rad(deg) {
     return (deg * Math.PI) / 180;
 }
 
-function oriMul(a, k){
+function oriMul(a, k) {
     return {
         alpha: a.alpha * k,
         beta: a.beta * k,
         gamma: a.gamma,
-    }
+    };
 }
 
-function oriSub(a,b){
+function oriSub(a, b) {
     return {
-        alpha: a.alpha - b.alpha, 
+        alpha: a.alpha - b.alpha,
         beta: a.beta - b.beta,
         gamma: a.gamma - b.gamma,
-    }
+    };
     //ans.alpha = modulo(ans.alpha, 360);
 }
 
-function oriSubAbs(a,b){
-    const v = oriSub(a,b);
+function oriSubAbs(a, b) {
+    const v = oriSub(a, b);
     v.alpha = modulo(v.alpha, 360);
     v.beta = modulo(v.beta, 360);
     v.gamma = modulo(v.gamma, 360);
     return v;
 }
 
-function oriAdd(a,b){
+function oriAdd(a, b) {
     return {
-        alpha: a.alpha + b.alpha, 
+        alpha: a.alpha + b.alpha,
         beta: a.beta + b.beta,
         gamma: a.gamma + b.gamma,
-    }
+    };
     //ans.alpha = modulo(ans.alpha, 360);
 }
 
-function modulo(a, n){
-    return ((a % n ) + n ) % n;
+function modulo(a, n) {
+    return ((a % n) + n) % n;
 }

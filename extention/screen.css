@@ -9,14 +9,14 @@
     top: 50%;
     left: 50%;
 
-    display: block;
+    display: none; /* default off */
     width: 10px;
     height: 10px;
     border-radius: 5px;
     background-color: red;
 }
 
-.circleSmartPointer::after{
+.circleSmartPointer::after {
     content: '';
     display: block;
     width: 100px;

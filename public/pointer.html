@@ -1,61 +1,59 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    
-    <meta charset="utf-8">
-    <title>Smart Pointer</title>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
 
-    <link rel="stylesheet" href="./pointer.css">
-    <script type="module" src="./pointer.js"></script>
+        <meta charset="utf-8" />
+        <title>Smart Pointer</title>
 
-  </head>
-  <body>
-    <div id="outputId"></div>
-    <div id="output"></div>
-    <div class="wrap">
-      <img src="./pointer.png" />
-      <br>
-      <div class="btns2">
-        <button id="arrowL" class="circleBtn2 left">←</button>
-        <button id="arrowR" class="circleBtn2 right">→</button>
-      </div>
-
-    </div>
-
-    <input type="checkbox" id="setting-btn-check">
-    <label for="setting-btn-check" class="setting-btn"><span></span></label>
-    <div class="setting">
-      <!-- <button id="btn">indicator</button> -->
-      <div class="wrapBtns">
-        <div class="btns">
-          <button id="btnC" class="circleBtn center">center</button>
-          <button id="btnL" class="circleBtn left">left</button>
-          <button id="btnR" class="circleBtn right">right</button>
-          <button id="btnT" class="circleBtn top">top</button>
-          <button id="btnB" class="circleBtn bottom">bottom</button>  
+        <link rel="stylesheet" href="./pointer.css" />
+        <script type="module" src="./pointer.js"></script>
+    </head>
+    <body>
+        <div id="outputId"></div>
+        <div id="output"></div>
+        <div class="wrap">
+            <img src="./pointer.png" />
+            <br />
+            <div class="btns2">
+                <button id="arrowL" class="circleBtn2 left">←</button>
+                <button id="onoff">ON/OFF</button>
+                <button id="arrowR" class="circleBtn2 right">→</button>
+            </div>
         </div>
 
-        <div class="pointerStyle">
-          <p>
-            point color:
-            <input type="color" value="#ff0000" id="color"/>
-          </p>
+        <input type="checkbox" id="setting-btn-check" />
+        <label for="setting-btn-check" class="setting-btn"><span></span></label>
+        <div class="setting">
+            <!-- <button id="btn">indicator</button> -->
+            <div class="wrapBtns">
+                <div class="btns">
+                    <button id="btnC" class="circleBtn center">center</button>
+                    <button id="btnL" class="circleBtn left">left</button>
+                    <button id="btnR" class="circleBtn right">right</button>
+                    <button id="btnT" class="circleBtn top">top</button>
+                    <button id="btnB" class="circleBtn bottom">bottom</button>
+                </div>
 
-          <p>
-            point size:
-            <input type="range" max="50" min="5" value="10" step="5" id="size"/>
-          </p>
-          
-          <p>
-            update delay:
-            <input type="range" max="100" min="0" value="50" step="10" id="delay"/>
-          </p>
+                <div class="pointerStyle">
+                    <p>
+                        point color:
+                        <input type="color" value="#ff0000" id="color" />
+                    </p>
+
+                    <p>
+                        point size:
+                        <input type="range" max="50" min="5" value="10" step="5" id="size" />
+                    </p>
+
+                    <p>
+                        update delay:
+                        <input type="range" max="100" min="0" value="50" step="10" id="delay" />
+                    </p>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-
-  </body>
+    </body>
 </html>

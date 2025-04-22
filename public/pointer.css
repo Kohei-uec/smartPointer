@@ -10,7 +10,7 @@
     margin: 1em;
 }
 
-.wrapBtns{
+.wrapBtns {
     display: inline-block;
     padding: 1em;
 }
@@ -22,7 +22,7 @@
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
 }
-.circleBtn2{
+.circleBtn2 {
     display: inline-block;
     width: 100px;
     height: 100px;
@@ -36,7 +36,7 @@
     text-align: center;
 }
 
-.circleBtn{
+.circleBtn {
     display: block;
     width: 100px;
     height: 100px;
@@ -65,6 +65,12 @@
     grid-column: 2;
 }
 
+#onoff {
+    font-size: 30px;
+    background-color: lightblue;
+    height: 100px;
+    border-radius: 50px;
+}
 
 /* setting btn ------------------------------*/
 .setting-btn {
@@ -122,8 +128,7 @@
     display: none;
 }
 
-
-.setting{
+.setting {
     background-color: rgba(204, 204, 204, 0.5);
     position: fixed;
     bottom: -110%;
@@ -136,6 +141,6 @@
 
     text-align: center;
 }
-#setting-btn-check:checked ~ .setting{
+#setting-btn-check:checked ~ .setting {
     bottom: 60px;
 }
